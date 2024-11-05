@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import profileImg from "../../img/download.jfif"
-import { Button, Divider, Grid, Paper } from "@mui/material";
+import { Button, Divider, Grid, Paper } from "material-ui-core";
 import { getData, postData } from "../../services/fetchnodeservices";
 import { toast } from "react-toastify";
 import coverPhoto from "../../img/cover.jpg"

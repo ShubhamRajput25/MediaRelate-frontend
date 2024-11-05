@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material"
+import { Grid } from "material-ui-core"
 import ProfileComponent from "../components/ProfileComponent"
 import Header from "../components/Header"
 import { useEffect, useState } from "react"

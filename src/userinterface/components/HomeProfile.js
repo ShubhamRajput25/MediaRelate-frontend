@@ -2,7 +2,7 @@ import "../css/HomeProfile.css"
 import image from "../../img/profileTempPostImg.webp"
 import { useNavigate } from "react-router-dom"
 import coverTempPhoto from "../../img/coverTempPhoto.jpg"
-import { Divider, Grid } from "@mui/material"
+import { Divider, Grid } from "material-ui-core"
 export default function HomeProfile({followers,following,noOfposts,username}){
     const navigate = useNavigate()
     let user = JSON.parse(localStorage.getItem('user'))

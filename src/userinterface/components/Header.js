@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 // import "../css/Header.css"
 import logo from "../../img/logo.png"
-import HomeIcon from '@mui/icons-material/Home';
-import SearchIcon from '@mui/icons-material/Search';
-import ExploreIcon from '@mui/icons-material/Explore';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import MessageIcon from '@mui/icons-material/Message';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import SearchIcon from '@material-ui/icons/Search';
+import ExploreIcon from '@material-ui/icons/Explore';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import MessageIcon from '@material-ui/icons/Message';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MenuIcon from '@material-ui/icons/Menu';
 import { Avatar, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from "@mui/material";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import { Button, Divider, TextareaAutosize } from "@mui/material";
+import { Button, Divider, TextareaAutosize } from "@material-ui/core";
 import postLogo from "../../img/postlogo.png"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Form, useNavigate } from "react-router-dom";

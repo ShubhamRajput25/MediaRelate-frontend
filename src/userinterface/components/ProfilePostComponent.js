@@ -6,7 +6,7 @@ import { deleteData, postData } from '../../services/fetchnodeservices';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Dialog, DialogContent } from '@mui/material';
+import { Dialog, DialogContent } from 'material-ui-core';
 import CommentSection from './CommentSection';
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from 'sweetalert2';

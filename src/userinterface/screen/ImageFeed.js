@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid } from "material-ui-core";
 import ImageFeedComponent from "../components/ImageFeedComponent";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
