@@ -1,0 +1,97 @@
+
+.followbtn{
+    color: #106fbd;
+    font: 15px;
+    font-family: sans-serif;
+    background:rgba(85, 113, 206, 0.1);
+    height: fit-content;
+    font-weight: bold;
+    margin: 0px 8px 0px 0px;
+    padding: 8px 16px;
+    transition: all .8s;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+}
+
+.followbtn:hover{
+    background: #106fbd;
+    color: #fff;
+}
+
+
+.editbtn{
+    width: fit-content;
+    color: #c23616;
+    font: 15px;
+    font-family: sans-serif;
+    background:rgba(214, 41, 62, 0.1);
+    height: fit-content;
+    font-weight: bold;
+    margin: 0px 8px 0px 0px;
+    padding: 8px 16px;
+    transition: all .8s;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editbtn:hover{
+    background: #c23616;
+    color: #fff;
+}
+
+.dateinput{
+    /* background: red; */
+    width: 100%;
+    padding: 9px;
+    font-size: .9rem;
+    border: 1px solid #57606f;
+    border-radius: 5px;
+    outline: none;
+}
+
+.editsubmitbtn{
+    /* background: #0097e6; */
+    padding: 12px 50px;
+    color: #0097e6;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 1px solid #0097e6;
+    border-radius: 10px;
+    transition: all .7s;
+    cursor: pointer;
+}
+.editsubmitbtn:hover{
+    background: #0097e6;
+    color: #fff;
+}
+
+.edittextarea{
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    outline: none;
+    border: 2px solid #dcdde1;
+}
+
+.edittextarea:focus{
+   
+    box-shadow: 0px 0px 2px #dcdde1;
+}
+
+.menu{
+    width:auto;
+    height: 50px;
+    background-color: #fff;
+    position: absolute;
+    right: 10%;
+    top: 80%;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 1px grey;
+}

@@ -1,0 +1,29 @@
+.photo-box{
+    width: 100%;
+    object-fit: fill;
+    height: 100%;
+  
+}
+
+
+
+.photo-on-hover{
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    position: absolute;
+    top: 0;
+
+}
+
+.photo-box:hover:hover{
+    .photo-on-hover{
+        width: 100%;
+    height: 100%;
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    opacity: 0.4;
+  background-color: black;
+    }
+}

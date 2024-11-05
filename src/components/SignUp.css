@@ -1,0 +1,111 @@
+.signup{
+    width:100%;
+    /* height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   font-family: lato;
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(192, 191, 191);
+    width: 350px;
+    margin-top: 10px;
+    padding: 20px;
+}
+
+.signupLogo{
+   font-size: 1.5rem;
+    /* font-family:   Verdana, sans-serif; */
+   color: blueviolet;
+}
+.box{
+    width: 78%;
+    box-sizing: border-box;
+    
+}
+
+.box img{
+    width: 65%;
+    margin: 9% 0% 2% 15%;
+}
+
+#loginwithfacebook-btn{
+    width: 100%;
+    background: #0652DD;
+    color: white;
+    border: none;
+    padding: 2.8%;
+    font-size: .9rem;
+    font-weight: 550;
+    border-radius: 8px;
+    margin-bottom: 5%;
+}
+
+#or-spam{
+    position: absolute;
+    top: -200%;
+    left: 43%;
+    background-color: #fff;
+    
+}
+
+.box input{
+    width: 100%;
+    padding: 9px;
+    margin: 3px;
+    border: 1px solid rgb(201, 200, 200);
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #d9d5d52e;
+}
+
+.box p{
+    font-size: .8rem;
+    color: rgb(104, 106, 107);
+}
+
+#submit-btn{
+    color: white;
+    background-color: blueviolet;
+    /* border-radius: 8px; */
+    font-weight: bold;
+    margin-bottom: 10%;
+    width: 100%;
+    padding: 10px 0px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.gotosignin{
+    width: 350px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    font-size: .9rem;
+    border: 1px solid rgb(192, 191, 191);
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 400px) {
+    .form-container{
+        width: auto;
+        border: none;
+    }
+    .gotosignin{
+        width: auto;
+        border: none;
+    }
+  }
+
+  .loginPara{
+    width: 100%;
+    margin-top: 10px;
+    padding: 0px;
+    font-size: .9rem;
+  }

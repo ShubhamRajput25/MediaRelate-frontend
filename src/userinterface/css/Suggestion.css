@@ -1,0 +1,14 @@
+
+.s-container{
+    width: 100%;
+    overflow: scroll;
+    max-height: 400;
+}
+
+.list-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}

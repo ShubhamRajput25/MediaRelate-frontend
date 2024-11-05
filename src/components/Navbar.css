@@ -1,0 +1,26 @@
+
+img{
+    width:15%;
+    object-fit:contain;
+}
+
+.navbar{
+    display:flex;
+    justify-content: space-around;
+    box-shadow: 1px 5px 5px #e0dcdc;
+}
+
+.nav-menu{
+    display: flex;
+}
+
+li{
+    list-style: none;
+    padding: 1px 15px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}

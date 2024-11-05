@@ -1,0 +1,25 @@
+.signupLogo{
+    font-size: 1.5rem;
+     /* font-family:   Verdana, sans-serif; */
+    color: blueviolet;
+ }
+
+ .signup{
+    width:100%;
+    /* height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   font-family: lato;
+}
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(192, 191, 191);
+    width: 350px;
+    margin-top: 10px;
+    padding: 20px;
+}

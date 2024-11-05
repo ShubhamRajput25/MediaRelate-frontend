@@ -1,0 +1,11 @@
+.sb-container{
+    background: #fff;
+    width: 150px;
+    /* height: 20px; */
+    padding: 10px;
+}
+
+.textField{
+    background: #fff;
+    border: none;
+}

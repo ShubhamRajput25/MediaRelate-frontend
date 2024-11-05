@@ -1,0 +1,72 @@
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fff;
+    position: relative; /* Allow absolute positioning of child elements */
+}
+
+.loading-content {
+    position: relative; /* Position for absolute children */
+    text-align: center;
+    width: 210px; /* Match the size of the largest orbit */
+    height: 210px; /* Match the size of the largest orbit */
+}
+
+.loading-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    position: absolute; /* Absolute positioning to center it */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the element's own size */
+
+}
+
+/* Orbit Styles */
+.orbit {
+    position: absolute;
+    border-radius: 50%;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    opacity: 0.8;
+    animation: rotate-animation infinite linear;
+    transform-origin: center; /* Set rotation point to the center */
+}
+
+/* Different orbits with slight color and size variations */
+.orbit1 {
+    width: 220px;
+    height: 220px;
+    border-bottom: 7px solid #ff4d4d; /* Red */
+    animation-duration: 4s;
+}
+
+.orbit2 {
+    width: 230px; /* Adjusted to create visual separation */
+    height: 230px; /* Equal width and height for a perfect circle */
+    border-bottom: 7px solid #4d94ff; /* Blue */
+    animation-duration: 6s;
+}
+
+.orbit3 {
+    width: 250px; /* New orbit size */
+    height: 250px; /* New orbit size */
+    border-bottom: 7px solid #4dff4d; /* Green */
+    animation-duration: 8s;
+}
+
+
+
+/* Rotation Animation */
+@keyframes rotate-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+

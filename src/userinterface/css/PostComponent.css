@@ -1,0 +1,14 @@
+.follow-btn:hover{
+background: #48dbfb;
+color: #fff;
+}
+
+.follow-btn{
+    transition: all .4s;
+    text-align: center;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #0abde3;
+}
