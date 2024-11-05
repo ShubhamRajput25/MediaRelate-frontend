@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { getData, postData, serverurl } from "../../services/fetchnodeservices";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Avatar, Badge, Button, Checkbox, Dialog, DialogContent, Divider } from "@mui/material";
-import { Favorite, FavoriteBorder } from "@material-ui/icons";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import commentIcon from "../../img/commentIcon.webp"
 import sendIcon from "../../img/sendIcon.png"
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
