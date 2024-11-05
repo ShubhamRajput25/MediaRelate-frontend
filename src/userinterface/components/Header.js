@@ -12,7 +12,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Avatar, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from "@mui/material";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import { Button, Divider, TextareaAutosize } from "@material-ui/core";
+import { Button, Divider, TextareaAutosize } from "@mui/material";
 import postLogo from "../../img/postlogo.png"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Form, useNavigate } from "react-router-dom";
