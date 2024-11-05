@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Avatar, Badge, Button, Checkbox, Dialog, DialogContent, Divider } from "material-ui-core";
+import { Avatar, Badge, Button, Checkbox, Dialog, DialogContent, Divider } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 import commentIcon from "../../img/commentIcon.webp"
 import { useRef, useState } from "react";

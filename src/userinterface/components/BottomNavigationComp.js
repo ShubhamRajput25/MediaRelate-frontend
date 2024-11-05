@@ -8,7 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import { Avatar, Button, Dialog, DialogContent, Divider } from 'material-ui-core';
+import { Avatar, Button, Dialog, DialogContent, Divider } from '@mui/material';
 import { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { postData } from '../../services/fetchnodeservices';

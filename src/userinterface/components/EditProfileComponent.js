@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, Grid} from "material-ui-core";
+import { Dialog, DialogContent, Grid} from "@mui/material";
 import { TextField ,MenuItem} from "@mui/material";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'

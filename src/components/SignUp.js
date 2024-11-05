@@ -8,7 +8,7 @@ import { wait } from "@testing-library/user-event/dist/utils";
 import { useNavigate } from "react-router-dom";
 import GoogleIcon from '@mui/icons-material/Google';
 import EmailIcon from '@mui/icons-material/Email';
-import { TextField } from "material-ui-core";
+import { TextField } from "@mui/material";
 export default function SignUp() {
 
     const [email, setEmail] = useState('')

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Grid from '@mui/material/Grid';
 import { getData, postData, serverurl } from "../../services/fetchnodeservices";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Avatar, Badge, Button, Checkbox, Dialog, DialogContent, Divider } from "material-ui-core";
+import { Avatar, Badge, Button, Checkbox, Dialog, DialogContent, Divider } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 import commentIcon from "../../img/commentIcon.webp"
 import sendIcon from "../../img/sendIcon.png"

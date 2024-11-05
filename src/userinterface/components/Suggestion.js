@@ -1,4 +1,4 @@
-import { Button, IconButton } from "material-ui-core"
+import { Button, IconButton } from "@mui/material"
 import image from "../../img/profileTempPostImg.webp"
 import "../css/Suggestion.css"
 import AddIcon from '@mui/icons-material/Add';

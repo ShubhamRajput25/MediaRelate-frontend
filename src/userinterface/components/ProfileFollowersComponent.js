@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { deleteData, postData } from "../../services/fetchnodeservices"
-import { Button, Divider, Grid, Paper } from "material-ui-core";
+import { Button, Divider, Grid, Paper } from "@mui/material";
 import "../css/ProfileComponent.css"
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, useMediaQuery, useTheme } from "@mui/material";

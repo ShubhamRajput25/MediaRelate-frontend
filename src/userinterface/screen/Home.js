@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Header from "../components/Header";
 import PostComponent from "../components/PostComponent";
 import { getData, postData, postImg } from "../../services/fetchnodeservices";
-import { Avatar, Button, Dialog, DialogContent, Divider, TextField } from "material-ui-core";
+import { Avatar, Button, Dialog, DialogContent, Divider, TextField } from "@mui/material";
 import PostSection from "../css/PostSection.css"
 import "../css/Home.css"
 import HomeProfile from "../components/HomeProfile";
