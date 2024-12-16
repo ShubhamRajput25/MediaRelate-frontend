@@ -57,23 +57,14 @@ export default function SignUp() {
                         justifyContent:'center',
                         gap:'5px'
                     }}><GoogleIcon /> Log in with Google</div>
-                    <div style={{
-                        backgroundColor:'blueviolet',
-                        color:'white',
-                        padding:'8px 0px',
-                        marginTop:'10px',
-                        display:'flex',
-                        alignItems:'center',
-                        justifyContent:'center',
-                        gap:'7px'
-                    }}><EmailIcon /> Log in with Email</div>
+
 
                     <hr style={{ marginTop: '4%', marginBottom: '10%', color: '#f1f2f6', }} />
 
                     <div style={{marginTop:'10px'}}>
                         {/* <input type="email" name="email" id="email" placeholder="Mobile number or email address" onChange={(e) => setEmail(e.target.value)} /> */}
 
-                        <TextField label="Mobile number or email address" name="email" id="email" onChange={(e) => setEmail(e.target.value)} fullWidth variant='outlined' />
+                        <TextField label="Email address" name="email" id="email" onChange={(e) => setEmail(e.target.value)} fullWidth variant='outlined' />
                     </div>
 
                     <div style={{marginTop:'10px'}}>
