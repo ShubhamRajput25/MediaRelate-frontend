@@ -9,8 +9,8 @@ export default function HomeProfile({followers,following,noOfposts,username}){
 
     return(<div className="hp-container"> 
         <div style={{width:'100%',position:'relative',display:'flex',justifyContent:'center'}}>
-        <img src={user.coverpic} style={{width:'100%',height:'120px',objectFit:'cover'}}/>
-        <img src={user.profilepic} style={{zIndex:2,position:'absolute',bottom:'-40px',width:'90px',border:'3px solid white',borderRadius:'10px',height:'90px',objectFit:'cover'}}/>
+        <img src={user.coverpic || "https://marketplace.canva.com/EAED_WYebUA/2/0/1600w/canva-explore-brush-script-photo-facebook-cover-nmLQj7f0bVU.jpg"} style={{width:'100%',height:'120px',objectFit:'cover'}}/>
+        <img src={user?.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"} style={{zIndex:2,position:'absolute',bottom:'-40px',width:'90px',border:'3px solid white',borderRadius:'10px',height:'90px',objectFit:'cover'}}/>
         </div>
 
             <div className="details-box">

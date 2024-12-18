@@ -73,13 +73,15 @@
     color: white;
     background-color: blueviolet;
     /* border-radius: 8px; */
-    font-weight: bold;
+    font-weight: 500;
     margin-bottom: 10%;
     width: 100%;
     padding: 10px 0px;
     margin-top: 10px;
     border: none;
     cursor: pointer;
+    height: 40px;
+    font-size: .9rem;
 }
 
 .gotosignin{

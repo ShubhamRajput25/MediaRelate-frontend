@@ -1,21 +1,31 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { toast } from "react-toastify"
 import { postData } from "../../services/fetchnodeservices"
+import "../css/OtpPage.css"
+import { Box, Modal } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
-export default function OtpPage(){
+export default function OtpPage({isModalOpen, setModalOpen, data}){
     const [otp, setOtp] = useState(["", "", "", ""])
     const inputRefs = useRef([])
+    const navigate = useNavigate()
+    const [submitLoading, setSubmitLoading] = useState(false)
+    
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
+        
         const otpValue = otp.join("");
         if (otpValue.length === 4) {
-          let result = await postData(``)
+            setSubmitLoading(true)
+          let result = await postData(`auth/verify-signup-otp`, {...data, otp:otpValue})
           if(result?.status){
-
+            toast?.success(result?.message)
+            navigate('/signin')
           }else{
-            
+            toast?.error(result?.message)
           }
+            setSubmitLoading(false)
         } else {
           toast?.error("Please enter a complete 4-digit OTP.");
         }
@@ -57,12 +67,29 @@ export default function OtpPage(){
           }
     }
 
-    return (<div className="otp-page">
+     // Handle modal close
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
+    return ( <Modal open={isModalOpen} onClose={handleClose}>
+        <Box className="modal-box" sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          p: 4,
+          borderRadius: 2,
+          width: '300px',
+          textAlign: 'center'
+        }}>
         <h1>Enter OTP</h1>
         <form onSubmit={handleSubmit} className="otp-form" >
         <div className="otp-inputs">
             {otp?.map((digit, index)=>{
-                <input 
+              return  <input 
                     key={index}
                     type="text"
                     maxLength="1"
@@ -72,7 +99,8 @@ export default function OtpPage(){
                 />
             })}
         </div>
-        <button type="submit" >Submit</button>
+        <button type="submit" >{submitLoading ? <img src={'../../../public/btn-loading-img.png'} /> : 'Submit' }</button>
         </form>
-    </div>)
+        </Box>
+        </Modal>)
 }

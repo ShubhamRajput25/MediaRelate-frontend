@@ -22,7 +22,7 @@ import projectLogo from "../../img/projectLogo.png"
 import SearchBar from "./SearchBar";
 import profilePhoto from "../../img/profileTempPostImg.webp"
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import MediaRelateLogo from "../../img/MediaRelate logo.png"
 export default function Header({refresh,setRefresh}) {
     const [open, setOpen] = useState(false)
     const [postimg, setPostimg] = useState('')
@@ -189,7 +189,7 @@ export default function Header({refresh,setRefresh}) {
             <div style={{width:'100%',height:'50px',display:'flex',justifyContent:'center'}}>
                 <div style={{width:'97%',display:'flex',}}>
                     <div style={{display:'flex',alignItems:'center'}}>
-                        <img src={projectLogo} style={{ width: matches5?'42vw': matches4?'30vw': matches3?'24vw': matches1?'18vw' : '12vw' , cursor:'pointer'}} onClick={()=>navigate('/home')}/>
+                        <img src={MediaRelateLogo} style={{ width: matches5?'42vw': matches4?'30vw': matches3?'24vw': matches1?'18vw' : '12vw' , cursor:'pointer'}} onClick={()=>navigate('/home')}/>
                         {/* {<SearchBar width="15vw" />} */}
                     </div>
              {matches3?<></> :  <div style={{display:'flex',alignItems:'center',marginLeft:'auto'}}>

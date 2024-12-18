@@ -188,8 +188,8 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
 
         <div style={{ width:  matches4?'98%':'90%' ,background:'white',display:'flex',alignItems:'center',flexDirection:'column',borderRadius:20}}>
             <div style={{ width: '95%', height:matches4?200: 250,marginTop:18 ,borderRadius:20}}>
-                <img src={userid == userData?._id ? user.coverpic || "https://trusteid.mioa.gov.mk/wp-content/plugins/uix-page-builder/uixpb_templates/images/UixPageBuilderTmpl/default-cover-2.jpg" : userData.coverpic || "https://www.findmysub.co.za/wp-content/uploads/2023/10/cover-default.jpg"} style={{ width: '100%', height: '100%', objectFit: 'cover' ,borderRadius:20}} />
-               {userid == userData?._id ? <Button style={{position:'absolute',color:'#7f8c8d',left:matches5?'79%':matches3?'85%':matches2?'56%':'57.5%',top:matches5?'7.2%':matches3?'6.5%':matches2?'5.5%':'7.5%', padding:0}} component="label" >
+                <img src={userid == userData?._id ? user.coverpic || "https://marketplace.canva.com/EAED_WYebUA/2/0/1600w/canva-explore-brush-script-photo-facebook-cover-nmLQj7f0bVU.jpg" : userData.coverpic || "https://www.findmysub.co.za/wp-content/uploads/2023/10/cover-default.jpg"} style={{ width: '100%', height: '100%', objectFit: 'cover' ,borderRadius:20}} />
+               {userid == userData?._id ? <Button style={{position:'absolute',color:'#7f8c8d',left:matches5?'79%':matches3?'85%':matches2?'56%':'57.5%',top:matches5?'7.2%':matches3?'6.5%':matches2?'5.5%':'7.5%', padding:0}} component="label" > 
                 <ModeEditIcon  />
                 <input type="file" hidden accept="image/*" onChange={(e)=>{handleProfileCoverPage(e.target.files[0])}} />
                 </Button> : <></>}

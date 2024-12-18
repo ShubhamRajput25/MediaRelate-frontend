@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import GoogleIcon from '@mui/icons-material/Google';
 import EmailIcon from '@mui/icons-material/Email';
 import { TextField } from "material-ui-core";
+import OtpPage from "../userinterface/components/OtpPage";
+
 export default function SignUp() {
 
     const [email, setEmail] = useState('')
@@ -16,6 +18,8 @@ export default function SignUp() {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [submitLoading, setSubmitLoading] = useState(false)
 
     const handleSubmit = async () => {
         let body = {
@@ -24,15 +28,17 @@ export default function SignUp() {
             'email': email,
             'password': password
         }
-
+            setSubmitLoading(true)
         let result = await signing('auth/signup', body)
 
         if (result.status == true) {
-            alert("hooo gya bhai submit")
-            navigate('/signin')
+            // alert("hooo gya bhai submit")
+            // navigate('/signin')
+            setModalOpen(true)
         } else {
             alert("bhai kuch galti ker dii")
         }
+        setSubmitLoading(false)
     }
 
     return (
@@ -91,7 +97,8 @@ export default function SignUp() {
                     </p>
 
 
-                    <input type="submit" id="submit-btn" value="Sign Up" onClick={handleSubmit} />
+                    {/* <input type="submit" id="submit-btn" value="Sign Up" onClick={handleSubmit} /> */}
+                    <button type="submit" id="submit-btn" onClick={handleSubmit} >{submitLoading ? 'Submiting....' : 'Submit' }</button>
                 </div>
             </div>
 
@@ -99,6 +106,13 @@ export default function SignUp() {
                 Have an account?
                 <Link to="/signin" style={{ color: 'blueviolet', fontWeight: 'bold', fontSize: '.8rem',marginLeft:'5px' }}>Log in</Link>
             </div>
+            <OtpPage isModalOpen={isModalOpen} setModalOpen={setModalOpen} 
+            data={
+            {'name': fullName,
+            'username': userName,
+            'email': email,
+            'password': password}
+            } />
         </div>
     )
 }

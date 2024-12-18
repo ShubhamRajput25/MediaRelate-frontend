@@ -9,23 +9,25 @@ import EmailIcon from '@mui/icons-material/Email';
 export default function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-  
+   const [submitLoading, setSubmitLoading] = useState(false)
     const navigate = useNavigate()
     const handleSubmit = async () => {
         let body = {
             "email": email,
             "password": password
         }
+        setSubmitLoading(true)
         let result = await signing('auth/signin', body)
-        if (result.status == true) {
+        if (result?.status == true) {
             // console.log("dataaaaaaaaaa", result.message)
-            alert("welcom user")
+            // alert("welcom user")
             window.localStorage.setItem('user',JSON.stringify(result.data))
             window.localStorage.setItem('token',JSON.stringify(result.token))
             navigate('/home')
         } else {
             alert("plz enter correct id and password")
         }
+        setSubmitLoading(false)
     }
     return (
         <div className="signup">
@@ -49,7 +51,8 @@ export default function SignIn() {
                   
 
                     <div>
-                        <input type="submit" id="submit-btn" value="Log in" style={{ marginBottom: '5%' }} onClick={handleSubmit} />
+                        {/* <input type="submit" id="submit-btn" value="Log in" style={{ marginBottom: '5%' }} onClick={handleSubmit} /> */}
+                        <button type="submit" id="submit-btn" onClick={handleSubmit} >{submitLoading ? 'Submiting....' : 'Submit' }</button>
                     </div>
 
                     <hr />
@@ -64,7 +67,7 @@ export default function SignIn() {
                         justifyContent:'center',
                         gap:'5px'
                     }}><GoogleIcon /> Log in with Google</div>
-                    <div style={{
+                    {/* <div style={{
                         backgroundColor:'blueviolet',
                         color:'white',
                         padding:'8px 0px',
@@ -73,7 +76,7 @@ export default function SignIn() {
                         alignItems:'center',
                         justifyContent:'center',
                         gap:'7px'
-                    }}><EmailIcon /> Log in with Email</div>
+                    }}><EmailIcon /> Log in with Email</div> */}
 
                     <div style={{ fontSize: '.8rem', marginBottom: '5%',marginTop:'10px' }}>Forgotten your password?</div>
 

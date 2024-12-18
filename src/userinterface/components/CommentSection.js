@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { Avatar, Badge, Button, Checkbox, Dialog, DialogContent, Divider } from "material-ui-core";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 import commentIcon from "../../img/commentIcon.webp"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { formatDate } from "../../Constant";
@@ -24,7 +24,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { useMediaQuery, useTheme } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export default function CommentSection({data, handleLikes,comment,setComment,open,setOpen,handleDeletePost, commentDataList, refresh, setRefresh}){
+export default function CommentSection({data, handleLikes,comment,setComment,open,setOpen,handleDeletePost, commentDataList, refresh, setRefresh, fetchCommentByPost, fetchCalled}){
     // const [comment, setComment] = useState('')
     const [replyCommentData,setReplyCommentData]=useState({
         id:'',
@@ -71,7 +71,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
             setReplyStatus(false)
             setComment(' ')
             setRefresh(!refresh)
-
+            fetchCalled.current = false;
         }else{
            
             let body = { postId: data?._id, comment: comment}
@@ -85,6 +85,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
             }
             setComment(' ')
             setRefresh(!refresh)
+            fetchCalled.current = false;
         }
         
 
@@ -100,6 +101,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
         let result = await postData(`post/like-comment`,{commentId:item?._id},config)
         if(result?.status == true){
             setRefresh(!refresh)
+            fetchCalled.current = false;
         }
     }
 
@@ -113,6 +115,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
         let result = await postData(`post/unlike-comment`,{commentId:item?._id},config)
         if(result?.status == true){
             setRefresh(!refresh)
+            fetchCalled.current = false;
         }
     }
 
@@ -126,6 +129,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
         let result = await postData(`post/like-reply`,{replyId:item?._id},config)
         if(result?.status == true){
             setRefresh(!refresh)
+            fetchCalled.current = false;
         }
     }
 
@@ -139,6 +143,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
         let result = await postData(`post/unlike-reply`,{replyId:item?._id},config)
         if(result?.status == true){
             setRefresh(!refresh)
+            fetchCalled.current = false;
         }
     }
 
@@ -245,7 +250,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
                     }} /> :<></>}
             </div>
 
-            <div style={{ flexGrow: 4,overflow:'scroll', height:'279px' }}>
+            <div style={{ flexGrow: 4,overflow:'scroll', height:'279px' }}  >
                 
                 {commentDataList?.map((item) => {
                     

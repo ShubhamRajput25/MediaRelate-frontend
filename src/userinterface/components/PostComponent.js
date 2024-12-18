@@ -31,7 +31,7 @@ export default function PostComponent({ data, refresh, setRefresh }) {
     let navigate = useNavigate()
     const videoRef = useRef(null);
     const [isMuted, setIsMuted] = useState(true);
-
+    // const [skip,setSkip] = useState(0)
     const theme = useTheme()
     const matches1 = useMediaQuery(theme.breakpoints.down(1000))
     const matches2 = useMediaQuery(theme.breakpoints.down(800))
@@ -39,12 +39,18 @@ export default function PostComponent({ data, refresh, setRefresh }) {
     const matches4 = useMediaQuery(theme.breakpoints.down(600))
     const matches5 = useMediaQuery(theme.breakpoints.down(500))
 
+    const fetchCalled = useRef(false);
 
     let user = JSON.parse(localStorage.getItem('user'))
     let userid = user._id
 
+  
     useEffect(function(req,res,next){
+        if (!fetchCalled.current) {
         fetchCommentByPost()
+        fetchCalled.current = true;
+        }
+       
         if(user.following?.includes(data.postedby)){
             setFollowBtnText('Unfollow')
         }
@@ -52,6 +58,10 @@ export default function PostComponent({ data, refresh, setRefresh }) {
 
     const notifyA = (msg) => toast.error(msg)
     const notifyB = (msg) => toast.success(msg) 
+
+  
+
+   
 
     const handleLikes = async (e) => {
         // console.log(data)
@@ -122,7 +132,7 @@ export default function PostComponent({ data, refresh, setRefresh }) {
     const handleOpenCommentDialog = () => {
         return <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={matches4?'':'md'} fullScreen={matches4}>
             <DialogContent style={{ padding: 0 }}>
-                <CommentSection data = {data} handleLikes={handleLikes} handleAddComments={handleAddComments} comment={comment} setComment={setComment} setOpen={setOpen} open={open} commentDataList={commentDataList} refresh={refresh} setRefresh={setRefresh} />
+                <CommentSection data = {data} handleLikes={handleLikes} handleAddComments={handleAddComments} comment={comment} setComment={setComment} setOpen={setOpen} open={open} commentDataList={commentDataList} refresh={refresh} setRefresh={setRefresh} fetchCommentByPost={fetchCommentByPost}  fetchCalled={fetchCalled}  />
             </DialogContent>
         </Dialog>
     }
@@ -135,7 +145,7 @@ export default function PostComponent({ data, refresh, setRefresh }) {
             }
         }
         let result = await postData(`post/fetch-comment-by-post?pageNumber=${currentPage}`,{postId:data?._id},config)
-        // console.log("ooooooooooooooooooooooooo",result)
+
         if(result?.status == true){
             setCommentDataList(result?.data)
         }

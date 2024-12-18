@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import LoadingPage from './userinterface/components/LoadingPage';
 import Notification from './userinterface/components/Notification';
+import OtpPage from './userinterface/components/OtpPage';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path='/imagefeed/:userId' element={<ImageFeed refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />}/>
         <Route path='/loadingpage' element={<LoadingPage />} />
         <Route path='/notification' element={<Notification />} />
+        {/* <Route path='/otp-form' element={<OtpPage />} /> */}
       </Routes>
       <ToastContainer />
      {matches3? <BottomNavigationComp refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading}  />: <></>}
