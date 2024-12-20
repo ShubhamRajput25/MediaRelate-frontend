@@ -18,6 +18,8 @@ import PostComponent from "./PostComponent";
 import CreatePostComponent from "./CreatePostComponent";
 import { ImageList, ImageListItem, useMediaQuery, useTheme } from "@mui/material";
 import ImageFeedPostComponent from "./ImageFeedPostComponent";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 export default function ProfileComponent({ userData, data, refresh, setRefresh, isLoading, setIsLoading }) {
     const [followBtnText, setFollowBtnText] = useState('Follow')
     // const [refresh, setRefresh] = useState(false)
@@ -34,10 +36,11 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
     const matches3 = useMediaQuery(theme.breakpoints.down(908))
     const matches4 = useMediaQuery(theme.breakpoints.down(700))
     const matches5 = useMediaQuery(theme.breakpoints.down(500))
+
+     let navigate = useNavigate()
     
     let user = JSON.parse(localStorage.getItem('user'))
     let userid = user._id
-    // console.log("aaaaaaaaaaaaaaaaaaaaaaaaa",user)
     if (user.following?.includes(userData._id) && cnt == 0) {  
         setCnt(cnt+1)
         setFollowBtnText('Unfollow')
@@ -45,12 +48,11 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
 
     const notifyA = (msg) => toast.error(msg)
     const notifyB = (msg) => toast.success(msg)
-    // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",data)
 
     const handleFollowBtn = async () => {
        
         let token = JSON.parse(localStorage.getItem('token'))
-        let body = { friendid: data.postedby }
+        let body = { friendid: userData._id }
         let config = {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -59,13 +61,13 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
         if (followBtnText == 'Follow') {
             let result = await postData('users/addfollowers', body, config)
             setFollowBtnText('UnFollow')
-            user.following.push(data.postedby)
+            user.following.push(userData?._id)
             localStorage.setItem('user', JSON.stringify(user))
             setRefresh(!refresh)
         } else {
             let result = await postData('users/removefollowers', body, config)
             setFollowBtnText('Follow')
-            user.following.splice(user.following.indexOf(data.postedby), 1)
+            user.following.splice(user.following.indexOf(userData?._id), 1)
             localStorage.setItem('user', JSON.stringify(user))
             setRefresh(!refresh)
         }
@@ -149,7 +151,7 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
     }
 
     const showPosts = () => {
-            return <div style={{ display: 'flex', flexDirection:'column', flexWrap: 'wrap', marginTop: 10, width: matches4?'100%':'90%', justifyContent: 'center',background:'white',borderRadius:20,alignItems:'center'}}>
+            return <div style={{ display: 'flex', flexDirection:'column', flexWrap: 'wrap', marginTop: 10, width: matches4?'100%':'90%', justifyContent: 'center',background:'white',borderRadius:20,alignItems:'center', paddingBottom:10}}>
             <div style={{fontWeight:'bold',fontSize:'1.5rem',width:'90%',textAlign:'start',padding:20}}>
                 Photos
             </div>
@@ -175,6 +177,25 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
         })} */}
         {/* </div> */}
     </div>
+    }
+
+    const handleLogout = async()=>{
+    
+    let result = await  Swal?.fire({
+        title:"Are you sure to logout your account",
+        text: "You won't be able to revert this!",
+        icon:'warning',
+        showCancelButton:true,
+        confirmButtonColor:'red',
+        cancelButtonColor:'#d33',
+        confirmButtonText: "Yes, Logout!",
+    })
+
+    if(result?.isConfirmed) {
+        localStorage?.removeItem('token')
+        localStorage?.removeItem('user')
+        navigate(`/signin`)
+    }
     }
 
     useEffect(function(){
@@ -254,11 +275,14 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
         {matches3?<></>: <Grid item xs={4} style={{display:'flex',alignItems:"start",flexDirection:'column',paddingTop:15}}>
 
                 <div style={{width:matches1?'98%':'80%',background:'white',textAlign:'start',borderRadius:20,marginBottom:20,display:'flex',alignItems:'center',padding:10}}>
-                    <img src={user?.profilepic || "https://i.pinimg.com/564x/04/bb/21/04bb2164bbfa3684118a442c17d086bf.jpg" } style={{width:50,height:50,borderRadius:'50%'}} />
-                    <span style={{marginLeft:10,fontSize:'1.02rem',fontWeight:'bold'}}>{user?.username}
+                    <img src={userid == userData?._id ? user.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg" : userData.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"} style={{width:50,height:50,borderRadius:'50%'}} />
+                    <span style={{marginLeft:10,fontSize:'1.02rem',fontWeight:'bold', cursor:'pointer'}} onClick={()=>{
+                         let userId = user?._id
+                         navigate(`/profile/${userId}`)
+                    }}>{user?.username}
                         <div style={{fontSize:'.9rem',fontWeight:'bold',color:'grey'}}>{user?.name}</div>
                     </span>
-                    <span style={{flex:1,textAlign:'end',fontWeight:'bold',fontSize:'.8rem',color:'#0095F6',cursor:'pointer'}}>Switch</span>
+                    <span style={{flex:1,textAlign:'end',fontWeight:'bold',fontSize:'.8rem',color:'#c0392b',cursor:'pointer'}}onClick={()=>handleLogout()}>Logout</span>
                 </div>
 
                 <div style={{width:matches1?'98%':'80%',background:'white',borderRadius:20,textAlign:'start',padding:20}}>
@@ -286,7 +310,7 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
                 
                 </div> */}
                 <div style={{width:matches1?'98%': '80%',background:'white',borderRadius:20,marginTop:'10px',overflow:'hidden',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                <CreatePostComponent refresh={refresh} setRefresh={setRefresh} />
+                <CreatePostComponent refresh={refresh} setRefresh={setRefresh} setIsLoading={setIsLoading}  />
                 </div>
                 <div  style={{width:matches1?'98%':'80%', display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'white', marginTop: 15, height: "fit-content",padding:5,borderRadius:20 }}>
                     <div style={{ fontSize: '1.4rem', fontWeight: 500, marginBottom: 10, fontWeight: 'bold', textAlign: 'start', width: '90%' }}>Suggestion</div>

@@ -1,6 +1,6 @@
 import axios from "axios";
-// let serverurl="http://192.168.29.247:5000"
-let serverurl="http://localhost:3000"
+let serverurl="http://192.168.29.247:3000"
+// let serverurl="http://localhost:3000"
 // let serverurl = "https://mediarelate-backend-4.onrender.com"
 const postData = async (url,body,config)=>{
     // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx",config)

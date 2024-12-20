@@ -10,8 +10,9 @@ import GoogleIcon from '@mui/icons-material/Google';
 import EmailIcon from '@mui/icons-material/Email';
 import { TextField } from "material-ui-core";
 import OtpPage from "../userinterface/components/OtpPage";
-
-export default function SignUp() {
+import { GoogleLogin } from '@react-oauth/google';
+import {jwtDecode} from 'jwt-decode'
+export default function SignUp({setIsLogin, refresh, setRefresh}) {
 
     const [email, setEmail] = useState('')
     const [fullName, setFullName] = useState('')
@@ -41,6 +42,26 @@ export default function SignUp() {
         setSubmitLoading(false)
     }
 
+    const continueWithGoogle = async(credentialResponse)=>{
+        
+        const jwtDetails = jwtDecode(credentialResponse?.credential)
+        
+        let body = {
+            ...jwtDetails,
+            ...credentialResponse
+        }
+        
+        let result = await postData(`auth/continue-with-google`,body)
+
+        if(result?.status){
+            
+            localStorage.setItem('token', JSON.stringify(result?.token))
+            localStorage.setItem('user', JSON.stringify(result?.data))
+            setIsLogin(true)
+            navigate('/home')
+        }
+    }
+
     return (
         <div className="signup">
 
@@ -53,7 +74,7 @@ export default function SignUp() {
                     </p>
 
                     {/* <input type="submit" id="loginwithfacebook-btn" value="Log in with Facebook" /> */}
-                    <div style={{
+                    {/* <div style={{
                         backgroundColor:'blueviolet',
                         color:'white',
                         padding:'8px 0px',
@@ -62,8 +83,20 @@ export default function SignUp() {
                         alignItems:'center',
                         justifyContent:'center',
                         gap:'5px'
-                    }}><GoogleIcon /> Log in with Google</div>
-
+                    }}><GoogleIcon /> Log in with Google</div> */}
+                   
+                        {/* <hr /> */}
+                        <div style={{display:'flex', justifyContent:'center', alignItems:'center', marginTop:10}}>
+                    <GoogleLogin
+                        onSuccess={credentialResponse => {
+                            continueWithGoogle(credentialResponse)
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                       width={'170px'}
+                        />
+                    </div>
 
                     <hr style={{ marginTop: '4%', marginBottom: '10%', color: '#f1f2f6', }} />
 

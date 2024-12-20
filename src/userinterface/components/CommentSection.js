@@ -59,6 +59,7 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
             }
         }
         if(replyStatus){
+            if(comment?.length >=1){
             let body = {commentId:replyCommentData?.id,replyTo:replyCommentData?.replyTo, reply:comment}
             // console.log("body...........",body)
             let result = await postData('post/add-reply-on-comment', body, config)
@@ -69,11 +70,12 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
             }
 
             setReplyStatus(false)
-            setComment(' ')
+            setComment('')
             setRefresh(!refresh)
             fetchCalled.current = false;
+        }
         }else{
-           
+           if(comment?.length >=1){
             let body = { postId: data?._id, comment: comment}
            
             let result = await postData('post/addcomments', body, config)
@@ -83,12 +85,11 @@ export default function CommentSection({data, handleLikes,comment,setComment,ope
             } else {
                 notifyA("error")
             }
-            setComment(' ')
+            setComment('')
             setRefresh(!refresh)
             fetchCalled.current = false;
-        }
-        
-
+        }  
+    }
     }
 
     const handleLikeComment = async(item)=>{

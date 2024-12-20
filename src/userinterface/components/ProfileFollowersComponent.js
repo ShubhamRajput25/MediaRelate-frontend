@@ -82,8 +82,9 @@ export default function ProfileFollowersComponent({userData,refresh,setRefresh,f
     }
 
     const showFollowerList = ()=>{
+        if(followers?.length >=1){
         return followers?.map((item)=>{
-            return  <div style={{width:'100%',background:'white',textAlign:'start',marginBottom:10,display:'flex',alignItems:'center',padding:10    }}>
+            return  <div style={{width:'100%',background:'white',textAlign:'start',marginBottom:10,display:'flex',alignItems:'center',padding:10, paddingRight:0    }}>
             <img src={item?.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg" } style={{width:40,height:40,borderRadius:'50%'}} />
             <div style={{
                 display:'flex',
@@ -92,6 +93,7 @@ export default function ProfileFollowersComponent({userData,refresh,setRefresh,f
             }}>
             <span style={{marginLeft:10,fontSize:'1.2rem',fontWeight:'bold'}} onClick={()=>{
             navigate(`/profile/${item?._id}`)
+            setFollowersDialogOpen(false)
            }}>{item.username}</span>
 
             <span style={{marginLeft:10,fontSize:'.9rem',fontWeight:'bold',color:'grey'}}>{item?.name}</span>
@@ -113,6 +115,17 @@ export default function ProfileFollowersComponent({userData,refresh,setRefresh,f
                     </div>}
         </div>
         })
+    }else{
+        return <div style={{
+            width:'100%',
+            height:'100px',
+            fontSize:'1.2rem',
+            fontWeight:'bold',
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center'
+        }}>NONE</div>
+    }
       
     }
 
@@ -137,7 +150,7 @@ export default function ProfileFollowersComponent({userData,refresh,setRefresh,f
                     }} onClick={()=>{setFollowersDialogOpen(false)}}> 
                      <CloseIcon  />
                      </div> }
-    <div style={{fontWeight:'bold',fontSize:'1.5rem',width:'90%',textAlign:'start',padding:20}}>
+    <div style={{fontWeight:'bold',fontSize:'1.5rem',width:'90%',textAlign:'start',padding:0}}>
         Followers
     </div>
 

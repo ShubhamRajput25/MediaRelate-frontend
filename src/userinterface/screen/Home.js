@@ -93,7 +93,6 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
     }
 
     const fetchAllPosts = async () => {
-       console.log("kk",limit, skip)
         let token = JSON.parse(localStorage.getItem('token'))
         let config = {
             headers: {
@@ -116,15 +115,38 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
         // console.log("end")
     }
 
+    const fetchAllPostsbyChanges = async () => {
+
+         let token = JSON.parse(localStorage.getItem('token'))
+         let config = {
+             headers: {
+                 Authorization: `Bearer ${token}`,
+             }
+         }
+         let user = JSON.parse(localStorage.getItem('user'))
+         let body = { user: user }
+         let result = await getData(`post/fetchAllPosts?limit=${skip+0}&skip=0`, config)
+ 
+         if (result?.status == true) {
+             setPostDataList(result?.data)
+         }
+ 
+         let postedbyyou = result?.data?.filter((item) => {
+             return item.postedby?._id === user._id
+         })
+         // console.log("post which is post by you : ", postedbyyou)
+         setPostByYou(postedbyyou)
+         // console.log("end")
+     }
+console.log("pppppppppppppp",users,users?.length)
     const showPosts = () => {
         return postDataList.map((item) => {
             return <div style={{ marginBottom: '1rem', width: '94%' }}  >
-                <PostComponent data={item} refresh={refresh} setRefresh={setRefresh} />
+                <PostComponent data={item} refresh={refresh} setRefresh={setRefresh} fetchAllPosts={fetchAllPostsbyChanges} />
                 <Divider />
             </div>
         })
     }
-
     return (
             isLoading? <LoadingPage /> :
         <div style={{ width: '100%',height:matches3?'auto':'100vh', background: '#f5f6fa' }}>
@@ -141,14 +163,14 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
 
                 <Grid item xs={matches5?12:matches4?10:matches3?8:matches1?6:4.5} className="filter-scrollbar" style={{ overflow: 'auto', height: matches3?'82vh':'85vh', display: 'flex', flexWrap: 'wrap' ,justifyContent:'center',marginTop:'90px'}} ref={containerRef} >
 
-                    <CreatePostComponent refresh={refresh} setRefresh={setRefresh} setIsLoading={setIsLoading} />
+                    <CreatePostComponent refresh={refresh} setRefresh={setRefresh} setIsLoading={setIsLoading} fetchAllPosts={fetchAllPostsbyChanges} />
 
                     {showPosts()}
                 </Grid>
-          {matches1?<></>:   <Grid item xs={2.7} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'white', marginTop: 15, height: "fit-content",marginTop:'105px' }}>
+  {users?.length >=2 ?  matches1?<></>:   <Grid item xs={2.7} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'white', marginTop: 15, height: "fit-content",marginTop:'105px' }}>
                     <div style={{ fontSize: '1.4rem', fontWeight: 500, marginBottom: 10, fontWeight: 'bold', textAlign: 'start', width: '90%' }}>Who to follow</div>
                     <Suggestion data = {users} refresh={refresh} setRefresh={setRefresh}/>
-                </Grid>}
+                </Grid> : <></> }
 
                 {/* {matches3?   <Grid item xs={12} style={{position:'absolute',top:'92%',width:'100%', backgroundColor:'#fff'}}>
 

@@ -6,6 +6,7 @@ import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAuto
 import { styled } from '@mui/system';
 import { useEffect, useState } from "react";
 import { postData } from "../../services/fetchnodeservices";
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function EditProfileComponent({open,setOpen, refresh, setRefresh}){
 
@@ -14,7 +15,7 @@ export default function EditProfileComponent({open,setOpen, refresh, setRefresh}
     const [gender,setGender]=useState('')
     const [dob,setDob]=useState('')
     const [bio,setBio]=useState('')
-
+    const [submitLoading, setSubmitLoading] = useState(false)
     useEffect(function(){
       setName(data.name)
       setUsername(data.username)
@@ -56,10 +57,19 @@ export default function EditProfileComponent({open,setOpen, refresh, setRefresh}
 
     return(<div style={{width:'100%'}}>
         <Dialog open={open} onClose={()=>setOpen(false)} fullWidth={true} maxWidth={'md'}>
-        <DialogContent style={{width:'100%',height:'100vh',background:'white',display:'flex',flexDirection:'column',alignItems:'center'}}>
+        <DialogContent style={{width:'100%',height:'100vh',background:'white',display:'flex',flexDirection:'column',alignItems:'center', position:'relative'}}>
         <div style={{fontSize:'1.7rem',fontWeight:'bold',marginBottom:20}}>
                 Edit Profile
              </div>
+             <div style={{
+                        position:'absolute',
+                        top:'0px',
+                        right:'0px',
+                        cursor:'pointer',
+                        color: 'black'
+                    }} onClick={()=>{setOpen(false)}}> 
+                     <CloseIcon  />
+                     </div> 
             <div style={{width:'80%',height:'100%'}}>
             <Grid container >
 
@@ -84,7 +94,9 @@ export default function EditProfileComponent({open,setOpen, refresh, setRefresh}
 
                 <Grid item xs={6} style={{paddingLeft:29}}>
                     <div style={{marginBottom:5,marginTop:10,textAlign:'start'}}>Date Of Birth</div>
-                    <input type='date' className="dateinput" onChange={(e)=>setDob(e.target.value)} value={dob} />
+                    <input type='date' className="dateinput" onChange={(e)=>setDob(e.target.value)} value={dob} max={new Date().toISOString().split("T")[0]} style={{
+                        cursor:'pointer'
+                    }} />
                 </Grid>
 
                 <Grid item xs={12}>
@@ -93,7 +105,7 @@ export default function EditProfileComponent({open,setOpen, refresh, setRefresh}
                 </Grid>
 
                 <Grid item xs={12} style={{marginTop:25,display:'flex',justifyContent:'center'}}>
-                  <span className="editsubmitbtn" onClick={handleSubmit} >Submit</span>
+                  <span className="editsubmitbtn" onClick={handleSubmit} >{submitLoading ? 'Submiting...' : 'Submit' }</span>
                 </Grid>
 
             </Grid> 

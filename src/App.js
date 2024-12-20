@@ -13,40 +13,87 @@ import Profile from './userinterface/screen/Profile';
 import ImageFeed from './userinterface/screen/ImageFeed';
 import BottomNavigationComp from './userinterface/components/BottomNavigationComp';
 import Header from './userinterface/components/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import LoadingPage from './userinterface/components/LoadingPage';
 import Notification from './userinterface/components/Notification';
 import OtpPage from './userinterface/components/OtpPage';
-
+import Search from './userinterface/screen/Search';
+import { getData } from './services/fetchnodeservices';
+import PermissionDenied from './userinterface/components/PermissionDenied';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   const [refresh, setRefresh] = useState(false)
   const [isLoading,setIsLoading]=useState(false)
+  const [isLogin, setIsLogin] = useState(true)
   const theme = useTheme()
     const matches1 = useMediaQuery(theme.breakpoints.down(1000))
     const matches2 = useMediaQuery(theme.breakpoints.down(800))
     const matches3 = useMediaQuery(theme.breakpoints.down(700))
     const matches4 = useMediaQuery(theme.breakpoints.down(600))
     const matches5 = useMediaQuery(theme.breakpoints.down(500))
+    let token = JSON.parse(localStorage.getItem('token'))
+    // const checkUser = async()=>{
+    // // setIsLoading(true)
+    // // let token = JSON.parse(localStorage.getItem('token'))
+    // // let config = {
+    // //     headers: {
+    // //         Authorization: `Bearer ${token}`,
+    // //     }
+    // // }
+    // //   let result = await getData('auth/check-user',config)
+
+    // //   if(result?.status) {
+    // //     setIsLogin(true)
+    // //     setIsLoading(false)
+    // //   }
+     
+    // }
+    
+    // useEffect(function(){
+      
+    // },[])
+
   return (
+    <GoogleOAuthProvider clientId="95811051786-1m2san9ac75f5qik6h0g5sjd4ue79jr0.apps.googleusercontent.com">
     <Router>
        <div className="App">
       
       <Routes>
-        <Route path='/signup' element={<SignUp />}/>
-        <Route path='/signin' element={<SignIn />}/>
-        <Route path='/profile/:userId' element={<Profile refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />}/>
-        <Route path='/home' element={<Home refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />}/>
-        <Route path='/imagefeed/:userId' element={<ImageFeed refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />}/>
+        
+        <Route path='/signup' element={<SignUp setIsLogin={setIsLogin} refresh={refresh} setRefresh={setRefresh} />}/>
+        <Route path='/signin' element={<SignIn setIsLogin={setIsLogin} refresh={refresh} setRefresh={setRefresh} />}/>
         <Route path='/loadingpage' element={<LoadingPage />} />
-        <Route path='/notification' element={<Notification />} />
-        {/* <Route path='/otp-form' element={<OtpPage />} /> */}
-      </Routes>
+    
+      {token ?
+        <Route path='/profile/:userId' element={<Profile refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />}/> : <> <Route element={<PermissionDenied
+          type='auth'
+          title={'Login to view your profile'} />} path="/profile/:userId" /> </> }
+
+       {token ? <Route path='/home' element={<Home refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />}/> : <> <Route element={<PermissionDenied
+          type='auth'
+          title={'Login to access the MediaRelate'} />} path="home" /> </> }
+
+       {token ? <Route path='/imagefeed/:userId' element={<ImageFeed refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />}/>: <> <Route element={<PermissionDenied
+          type='auth'
+          title={'Login to access the MediaRelate'} />} path="home" /> </> }
+
+      {token ?  <Route path='/notification' element={<Notification />} /> : <> <Route element={<PermissionDenied
+          type='auth'
+          title={'Login to access the MediaRelate'} />} path="home" /> </> }
+
+      {token ? <Route path='/search' element={<Search />} /> : <> <Route element={<PermissionDenied
+          type='auth'
+          title={'Login to access the MediaRelate'} />} path="home" /> </> }
+       
+        </Routes>
       <ToastContainer />
-     {matches3? <BottomNavigationComp refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading}  />: <></>}
+     {matches3? token ? <BottomNavigationComp refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading}  /> : <></>: <></>}
+     
       </div>
     </Router>
+    </GoogleOAuthProvider>
   );
 }
 

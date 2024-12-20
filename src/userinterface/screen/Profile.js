@@ -1,7 +1,7 @@
 import { Grid } from "material-ui-core"
 import ProfileComponent from "../components/ProfileComponent"
 import Header from "../components/Header"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { getData, postData } from "../../services/fetchnodeservices"
 import { useLocation, useParams } from "react-router-dom"
 import coverTempPhoto from "../../img/coverTempPhoto.jpg"
@@ -11,13 +11,19 @@ export default function Profile({refresh, setRefresh, isLoading, setIsLoading}){
     const [myPosts,setMyPosts]=useState([])
     const [userData,setUserData]=useState([])
    
-    
+   
     let param = useParams();
     let user = JSON.parse(localStorage.getItem('user'))
 
+    let fetchCalled = useRef(false)
+
     useEffect(function(){
-            fetchUserDetails()
-            fetchMyPosts()
+            if(!fetchCalled.current){
+            setIsLoading(true)
+            fetchCalled.current = true
+        }
+        fetchUserDetails()
+        fetchMyPosts() 
     },[refresh,param?.userId])
 
     const fetchUserDetails = async()=>{
@@ -48,6 +54,8 @@ export default function Profile({refresh, setRefresh, isLoading, setIsLoading}){
         if(result.status == true){
             setMyPosts(result.data)
         }
+       
+        setIsLoading(false)
     }
 
     return (isLoading? <LoadingPage /> :<div style={{width:'100%',background:'#F1F3F4'}}>

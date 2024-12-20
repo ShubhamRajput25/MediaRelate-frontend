@@ -19,7 +19,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { useMediaQuery, useTheme } from "@mui/material";
 
-export default function PostComponent({ data, refresh, setRefresh }) {
+export default function PostComponent({ data, refresh, setRefresh,fetchAllPosts }) {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const [postedByInfo, setPostedByInfo] = useState({})
     const [followBtnText, setFollowBtnText] = useState('Follow')
@@ -79,6 +79,7 @@ export default function PostComponent({ data, refresh, setRefresh }) {
             let result = await postData('post/removelikes', body, config)
             setRefresh(!refresh)
         }
+        fetchAllPosts()
     }
 
     const handleFollowBtn = async () => {
@@ -106,6 +107,7 @@ export default function PostComponent({ data, refresh, setRefresh }) {
     }
 
     const handleAddComments = async () => {
+
         let token = JSON.parse(localStorage.getItem('token'))
         let body = { postId: data?._id, comment: comment}
         let config = {
@@ -122,7 +124,7 @@ export default function PostComponent({ data, refresh, setRefresh }) {
         }
         setComment(' ')
         setRefresh(!refresh)
-
+        fetchCommentByPost()
     }
 
     const handleClose = () => {
@@ -192,13 +194,13 @@ export default function PostComponent({ data, refresh, setRefresh }) {
                 </div>
             </div>
             {/* {console.log("userid === data.postedby",userid,data)} */}
-            <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', position: 'relative' }}>
+            {/* <div style={{ display: 'flex', justifyContent: 'end', alignItems: 'center', position: 'relative' }}>
                 {userid === data.postedby?._id ? null : <div className="follow-btn" onClick={handleFollowBtn}>{followBtnText}</div>}
                 <span style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                     <MoreVertIcon style={{ fontSize: 18 }} onClick={() => setOpenMenu(!openMenu)} />
                 </span>
                 {openMenu ? handlePostMenu() : null}
-            </div>
+            </div> */}
         </div>
     
         <div>
@@ -252,9 +254,10 @@ export default function PostComponent({ data, refresh, setRefresh }) {
                         <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} onClick={handleLikes} />
                     }
                     <div style={{ fontSize: '1.05rem', fontWeight: 'bold' }}>{data?.likes?.length}</div>
-                    <Badge badgeContent={commentDataList?.length} color="secondary">
+                    {/* <Badge badgeContent={commentDataList?.length} color="secondary"> */}
                         <img src={commentIcon} style={{ width: '27px', marginLeft: 7, cursor: 'pointer' }} onClick={() => setOpen(true)} />
-                    </Badge>
+                    {/* </Badge> */}
+                    <div style={{ fontSize: '1.05rem', fontWeight: 'bold' }}>{commentDataList?.length}</div>
                 </div>
             </div>
     

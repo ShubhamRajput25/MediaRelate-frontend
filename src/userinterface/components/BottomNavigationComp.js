@@ -18,7 +18,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import { useMediaQuery, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import CollectionsIcon from '@mui/icons-material/Collections';
 
 function BottomNavigationComp({refresh, setRefresh, isLoading, setIsLoading}) {
 
@@ -200,9 +200,9 @@ const handleChange = (event, newValue) => {
 
 const list = [
   {label:"Home" , value:"home" , icon:<HomeIcon />},
-  {label:"Search" , value:"imagefeed" , icon:<SearchIcon />},
+  {label:"Search" , value:"search" , icon:<SearchIcon />},
   {label:"Add" , value:"add" , icon:<AddBoxIcon />},
-  {label:"Notifications" , value:"notification" , icon:<FavoriteIcon />},
+  {label:"Feed" , value:"imagefeed" , icon:<CollectionsIcon />},
   {label:"Profile" , value:"profile" , icon:<AccountCircleIcon />}
 ]
 

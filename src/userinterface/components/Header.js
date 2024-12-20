@@ -189,7 +189,7 @@ export default function Header({refresh,setRefresh}) {
             <div style={{width:'100%',height:'50px',display:'flex',justifyContent:'center'}}>
                 <div style={{width:'97%',display:'flex',}}>
                     <div style={{display:'flex',alignItems:'center'}}>
-                        <img src={MediaRelateLogo} style={{ width: matches5?'42vw': matches4?'30vw': matches3?'24vw': matches1?'18vw' : '12vw' , cursor:'pointer'}} onClick={()=>navigate('/home')}/>
+                        <img src={MediaRelateLogo} style={{ width: matches5?'29vw': matches4?'23vw': matches3?'18vw': matches1?'12vw' : '9vw' , cursor:'pointer'}} onClick={()=>navigate('/home')}/>
                         {/* {<SearchBar width="15vw" />} */}
                     </div>
              {matches3?<></> :  <div style={{display:'flex',alignItems:'center',marginLeft:'auto'}}>
@@ -206,11 +206,13 @@ export default function Header({refresh,setRefresh}) {
                         let userId = user?._id
                         navigate(`/profile/${userId}`)
                         }}>Profile</div>
-                    <div style={{marginLeft:'10px'}} >
+                    {/* <div style={{marginLeft:'10px'}} >
                     <NotificationsIcon />                 
-                    </div>
+                    </div> */}
                     <div>   
-                    <Avatar src={user?.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"} style={{width:'40px',height:'40px',marginLeft:'5px' }} /></div>
+                    <Avatar src={user?.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"} style={{width:'40px',height:'40px',marginLeft:'5px' }} onClick={()=>{ 
+                    let userId = user?._id
+                    navigate(`/profile/${userId}`)}} /></div>
                     </div> }
                 </div>
        

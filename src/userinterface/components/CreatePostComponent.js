@@ -10,7 +10,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import { useMediaQuery, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function CreatePostComponent({refresh,setRefresh,setIsLoading}){
+export default function CreatePostComponent({refresh,setRefresh,setIsLoading, fetchAllPosts}){
     const [caption, setCaption] = useState('')
     const [open, setOpen] = useState(false)
     const [postimg, setPostimg] = useState('')
@@ -70,12 +70,15 @@ export default function CreatePostComponent({refresh,setRefresh,setIsLoading}){
             let result = await postData('post/createpost', body, config);
             // console.log("Server Response:", result);  // Log the response from the server
             setIsLoading(false)
+            
             if (result.status === true) {
                 setCaption('')
                 notifyB(result.message);
                 setRefresh(!refresh);
                 handleClose();
+                fetchAllPosts()
             }
+           
         })
         .catch((err) => console.log("Upload Error:", err));
     };
@@ -84,31 +87,31 @@ export default function CreatePostComponent({refresh,setRefresh,setIsLoading}){
         const mediaURL = URL.createObjectURL(postimg);
         
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2%', boxSizing: 'border-box' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' , height: '600px', position:'relative'}}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2%', boxSizing: 'border-box', position:'absolute', top:0 }}>
                     <div onClick={() => setPostimg('')}> <ArrowBackIcon /></div>
-                    <div onClick={handleSubmitPost} style={{ cursor: 'pointer' }}>Share</div>
+                    <div onClick={handleSubmitPost} style={{ cursor: 'pointer', fontWeight:'bold' }}>Share</div>
                 </div>
     
                 {/* Show either image or video preview based on the file type */}
-                <div style={{ width: '100%', height: '400px' }}>
+                <div style={{ width: '100%' }}>
                     {postimg.type.startsWith('image/') ? (
                         <img src={mediaURL} style={{ width: '100%', height: '100%' }} alt="preview" />
                     ) : (
                         <video src={mediaURL} style={{ width: '100%', height: '100%' }} controls />
                     )}
                 </div>
-    
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', width: '90%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '5%' }}>
-                        <Avatar />
-                        <div style={{ marginLeft: '5%' }}>itz_shubham.0255</div>
-                    </div>
-                    <div>
+            
+                
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', width: '99%', position:'absolute', bottom:0 }}>
+                <hr style={{ width:'100%'}}/>
+                    <div style={{width:'100%'}}>
                         <textarea
                             type="text"
                             placeholder="Write a caption...."
-                            style={{ border: 'none', width: 300, marginTop: '5%', outline: 'none' }}
+                            style={{ border: 'none', width: '100%', marginTop: '5%', outline: 'none', 
+                                padding:'10px'
+                             }}
                             value={caption}
                             onChange={(e) => setCaption(e.target.value)}
                         ></textarea>
