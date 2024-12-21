@@ -42,6 +42,7 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
     const matches3 = useMediaQuery(theme.breakpoints.down(700))
     const matches4 = useMediaQuery(theme.breakpoints.down(600))
     const matches5 = useMediaQuery(theme.breakpoints.down(500))
+    const matches6 = useMediaQuery(theme.breakpoints.down(1200))
 
     let user = JSON.parse(localStorage.getItem('user'))
 
@@ -157,17 +158,18 @@ console.log("pppppppppppppp",users,users?.length)
               
                 </Grid>
 
-            {matches3?<></>: <Grid item xs={matches2?5.5:matches1?5:3.5} style={{ display: 'flex', justifyContent: 'end', background: 'fixed',marginTop:'90px' }}>
+            {matches3?<></>: <Grid item xs={matches2?5.5:matches6?4.8:3.5} style={{ display: 'flex', justifyContent: 'end', background: 'fixed',marginTop:'90px'}}>
                     <HomeProfile followers={user.followers.length} following={user.following.length} noOfposts={postByYou?.length} username={user.username} />
+
                 </Grid> }
 
-                <Grid item xs={matches5?12:matches4?10:matches3?8:matches1?6:4.5} className="filter-scrollbar" style={{ overflow: 'auto', height: matches3?'82vh':'85vh', display: 'flex', flexWrap: 'wrap' ,justifyContent:'center',marginTop:'90px'}} ref={containerRef} >
+                <Grid item xs={matches5?12:matches4?10:matches3?8:matches6?6:4.5} className="filter-scrollbar" style={{ overflow: 'auto', height: matches3?'82vh':'85vh', display: 'flex', flexWrap: 'wrap' ,justifyContent:'center',marginTop:'90px'}} ref={containerRef} >
 
                     <CreatePostComponent refresh={refresh} setRefresh={setRefresh} setIsLoading={setIsLoading} fetchAllPosts={fetchAllPostsbyChanges} />
 
                     {showPosts()}
                 </Grid>
-  {users?.length >=2 ?  matches1?<></>:   <Grid item xs={2.7} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'white', marginTop: 15, height: "fit-content",marginTop:'105px' }}>
+  {users?.length >=2 ?  matches6 ? <></>:   <Grid item xs={2.7} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'white', marginTop: 15, height: "fit-content",marginTop:'105px' }}>
                     <div style={{ fontSize: '1.4rem', fontWeight: 500, marginBottom: 10, fontWeight: 'bold', textAlign: 'start', width: '90%' }}>Who to follow</div>
                     <Suggestion data = {users} refresh={refresh} setRefresh={setRefresh}/>
                 </Grid> : <></> }

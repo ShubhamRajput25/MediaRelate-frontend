@@ -1,13 +1,25 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getData } from "../../services/fetchnodeservices";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
+import LoadingPage from "../components/LoadingPage";
 
-const Search = () => {
+const Search = ({refresh, setRefresh, isLoading, setIsLoading}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
 
   let navigate = useNavigate()
+  let fetchCalled = useRef(false)
+
+   const theme = useTheme()
+   const matches1 = useMediaQuery(theme.breakpoints.down(1000))
+   const matches2 = useMediaQuery(theme.breakpoints.down(800))
+   const matches3 = useMediaQuery(theme.breakpoints.down(700))
+   const matches4 = useMediaQuery(theme.breakpoints.down(600))
+   const matches5 = useMediaQuery(theme.breakpoints.down(500))
+   const matches6 = useMediaQuery(theme.breakpoints.down(1200))
 
   const handleSearch = async() => {
     if (searchTerm.trim() !== "") {
@@ -27,14 +39,41 @@ const Search = () => {
     }
   };
 
+   const fetchAllUsers = async () => {
+          let token = JSON.parse(localStorage.getItem('token'))
+          let config = {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              }
+          }
+          let result = await getData('users/getsuggestionList',config)
+          if(result?.status == true){
+              setUsers(result.data)
+          }
+      }
+
+  useEffect(function(){
+    if(!fetchCalled.current) {
+      fetchAllUsers()
+      fetchCalled.current = true
+    }
+  },[])
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleSearch();
     }
   };
 
-  return (
-    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
+  return ( isLoading? <LoadingPage /> :
+    <div style={{ width: '100%',height:matches3?'auto':'100vh', background: '#f5f6fa' }}>
+        <Grid container spacing={2} style={{ display:'flex',justifyContent:'center',position:'relative'}}>
+            <Grid item xs={12} style={{ background: 'white' , position:'fixed',top:0,left:0,zIndex:1000,width:'100%'}}>
+
+                <Header refresh={refresh} setRefresh={setRefresh} />
+          
+            </Grid>
+    <Grid item xs={12} style={{ padding: "20px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
       <h1 style={{ textAlign: "center", marginBottom: "30px", color: "#2c3e50" }}>Search Users</h1>
       <div style={{ display: "flex", alignItems: "center", marginBottom: "30px" }}>
         <div style={{ flex: 1, position: "relative" }}>
@@ -95,7 +134,7 @@ const Search = () => {
                 }}
               >
                 <img
-                  src={user.profilepic}
+                  src={user.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"}
                   alt={user.name?.[0]}
                   style={{ width: "60px", height: "60px", borderRadius: "50%", marginRight: "15px" }}
                 />
@@ -113,6 +152,9 @@ const Search = () => {
           <p style={{ textAlign: "center", color: "#7f8c8d" }}>No users found</p>
         )}
       </div>
+    </Grid>
+
+    </Grid>
     </div>
   );
 };

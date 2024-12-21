@@ -238,10 +238,8 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
                         <div style={{width:'fit-content'}}>{data?.length} <span style={{fontSize:'.98rem'}}>posts</span></div>
                     </div>
                    </div>
-                    {/* <div style={{ marginTop: 10 }}>
-                        Turning dreams into plans. 🚀 | Adventure seeker | Coffee enthusiast ☕
-                    </div> */}
-                    {userid == userData?._id ? <div style={{marginTop: matches4?'10px': matches3?'':matches2?'10px':''}} className="editbtn" onClick={()=>setOpen(true)}><ModeEditIcon /> Edit Profile</div> : <div style={{ marginTop: 10 ,marginRight:20}}>
+                   
+                    {userid == userData?._id ? <div style={{marginTop: matches4?'10px': matches3?'':matches2?'10px':'', width:'fit-content', fontSize:'.9rem'}} className="editbtn" onClick={()=>setOpen(true)}><ModeEditIcon style={{fontSize:'1.2rem'}} /> Edit Profile</div> : <div style={{ marginTop: 10 ,marginRight:20}}>
                         <Button variant='contained' color='primary' onClick={handleFollowBtn}>
                             {followBtnText}
                         </Button>

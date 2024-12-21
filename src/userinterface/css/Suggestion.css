@@ -2,7 +2,7 @@
 .s-container{
     width: 100%;
     overflow: scroll;
-    max-height: 400;
+    max-height: 400px;
 }
 
 .list-box{

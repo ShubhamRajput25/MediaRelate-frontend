@@ -28,7 +28,7 @@ export default function ImageFeedComponent({
     
   return (
     <Box sx={{ width: matches4?'100%': '90%', height: '100vh', overflowY: 'scroll' }}>
-      <ImageList variant="quilted"  cols={matches4?2:3} gap={2}>
+      <ImageList variant="quilted"  cols={matches4?3:4} gap={2}>
         {data.map((item) => (
           <ImageListItem key={item?.picture} style={{padding:'0px',cursor:'pointer'}}>
             {/* <img

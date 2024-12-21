@@ -83,7 +83,7 @@ function App() {
           type='auth'
           title={'Login to access the MediaRelate'} />} path="home" /> </> }
 
-      {token ? <Route path='/search' element={<Search />} /> : <> <Route element={<PermissionDenied
+      {token ? <Route path='/search' element={<Search  refresh={refresh} setRefresh={setRefresh} isLoading={isLoading} setIsLoading={setIsLoading} />} /> : <> <Route element={<PermissionDenied
           type='auth'
           title={'Login to access the MediaRelate'} />} path="home" /> </> }
        
