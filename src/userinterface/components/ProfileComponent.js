@@ -198,6 +198,38 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
     }
     }
 
+    const handleDeleteAccount = async()=>{
+        let result = await  Swal?.fire({
+            title:"Are you sure to delete your account",
+            text: "You won't be able to revert this!",
+            icon:'warning',
+            showCancelButton:true,
+            confirmButtonColor:'red',
+            cancelButtonColor:'#d33',
+            confirmButtonText: "Yes, delete it!",
+        })
+
+        if(result?.isConfirmed) {
+            let token = JSON.parse(localStorage.getItem('token'))
+            let config = {
+                headers : {
+                    Authorization:`Bearer ${token}`
+                }
+            }
+            let body = {email: user?.email}
+            let result = await postData('auth/delete-user', body, config)
+            if(result?.status) {
+                toast.success(result?.message)
+                localStorage?.removeItem('token')
+                localStorage?.removeItem('user')
+                navigate(`/signin`)
+            }else {
+                toast.error(result?.message)
+            }
+            
+        }
+    }
+
     useEffect(function(){
         fetchSuggestionList()
     },[refresh])
@@ -272,7 +304,7 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
             </Grid>
         {matches3?<></>: <Grid item xs={4} style={{display:'flex',alignItems:"start",flexDirection:'column',paddingTop:15}}>
 
-                <div style={{width:matches1?'98%':'80%',background:'white',textAlign:'start',borderRadius:20,marginBottom:20,display:'flex',alignItems:'center',padding:10}}>
+                <div style={{width:matches1?'98%':'80%',background:'white',textAlign:'start',borderRadius:20,marginBottom:20,display:'flex',alignItems:'',padding:10}}>
                     <img src={userid == userData?._id ? user.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg" : userData.profilepic || "https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg"} style={{width:50,height:50,borderRadius:'50%'}} />
                     <span style={{marginLeft:10,fontSize:'1.02rem',fontWeight:'bold', cursor:'pointer'}} onClick={()=>{
                          let userId = user?._id
@@ -280,7 +312,10 @@ export default function ProfileComponent({ userData, data, refresh, setRefresh, 
                     }}>{user?.username}
                         <div style={{fontSize:'.9rem',fontWeight:'bold',color:'grey'}}>{user?.name}</div>
                     </span>
+                    <span style={{flex:1,textAlign:'end',fontWeight:'bold',fontSize:'.8rem',color:'#c0392b',cursor:'pointer', display:'flex', flexDirection:'column', justifyContent:'end', width:'fit-content'}}>
                     <span style={{flex:1,textAlign:'end',fontWeight:'bold',fontSize:'.8rem',color:'#c0392b',cursor:'pointer'}}onClick={()=>handleLogout()}>Logout</span>
+                    <span style={{flex:1,textAlign:'end',fontWeight:'bold',fontSize:'.8rem',color:'#c0392b',cursor:'pointer'}}onClick={()=>handleDeleteAccount()}>Delete Account</span>
+                    </span>
                 </div>
 
                 <div style={{width:matches1?'98%':'80%',background:'white',borderRadius:20,textAlign:'start',padding:20}}>

@@ -25,7 +25,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   const [refresh, setRefresh] = useState(false)
-  const [isLoading,setIsLoading]=useState(false)
+  const [isLoading,setIsLoading]=useState(true)
   const [isLogin, setIsLogin] = useState(true)
   const theme = useTheme()
     const matches1 = useMediaQuery(theme.breakpoints.down(1000))

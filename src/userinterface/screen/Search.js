@@ -3,15 +3,30 @@ import React, { useEffect, useRef, useState } from "react";
 import { getData } from "../../services/fetchnodeservices";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import { Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Grid, Pagination, Typography, useMediaQuery, useTheme } from "@mui/material";
 import LoadingPage from "../components/LoadingPage";
 
 const Search = ({refresh, setRefresh, isLoading, setIsLoading}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalData, setTotalData] = useState('')
+  const [totalPages, setTotalPages] = useState(null);
 
   let navigate = useNavigate()
   let fetchCalled = useRef(false)
+
+  const itemsPerPage = 10;
+  const count = users?.length;
+
+  const startEntry = (currentPage - 1) * itemsPerPage + 1;
+  const endEntry = Math.min(currentPage * itemsPerPage, totalData);
+
+  const handlePageChange = (event, value) => {
+      setCurrentPage(value);
+      fetchCalled.current = false
+  };
+
 
    const theme = useTheme()
    const matches1 = useMediaQuery(theme.breakpoints.down(1000))
@@ -46,10 +61,13 @@ const Search = ({refresh, setRefresh, isLoading, setIsLoading}) => {
                   Authorization: `Bearer ${token}`,
               }
           }
-          let result = await getData('users/getsuggestionList',config)
+          let result = await getData(`users/fetch-user-with-pagination?pageNumber=${currentPage}`,config)
           if(result?.status == true){
-              setUsers(result.data)
+              setUsers(result.data?.users)
+              setTotalPages(result?.data?.totalPages)
+              setTotalData(result?.data?.totalUsers)
           }
+          setIsLoading(false)
       }
 
   useEffect(function(){
@@ -57,7 +75,7 @@ const Search = ({refresh, setRefresh, isLoading, setIsLoading}) => {
       fetchAllUsers()
       fetchCalled.current = true
     }
-  },[])
+  },[currentPage])
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -148,9 +166,34 @@ const Search = ({refresh, setRefresh, isLoading, setIsLoading}) => {
               </div>
             ))}
           </div>
-        ) : (
+         ) : (
           <p style={{ textAlign: "center", color: "#7f8c8d" }}>No users found</p>
         )}
+         {users?.length > 0 && (
+                                <div
+                                    style={{
+                                        borderTop: "1px solid gainsboro",
+                                        padding: "2%",
+                                        marginTop: '2%',
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                    }}
+                                >
+                                    <Typography
+                                        style={{
+                                            fontWeight: 500,
+                                            fontSize: 15,
+                                            color: "black",
+                                        }}
+                                    >{`Showing ${startEntry} to ${endEntry} of ${totalData} Records`}</Typography>
+                                    <Pagination
+                                        count={totalPages}
+                                        page={currentPage}
+                                        onChange={handlePageChange}
+                                        color="primary"
+                                    />
+                                </div>
+                            )}
       </div>
     </Grid>
 

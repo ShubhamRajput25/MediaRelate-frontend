@@ -57,6 +57,7 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
             fetchAllPosts();
             fetchAllUsers();
             fetchCalled.current = true;
+            setIsLoading(false)
         }
         const container = containerRef.current;
         if (container) {
@@ -94,6 +95,7 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
     }
 
     const fetchAllPosts = async () => {
+        
         let token = JSON.parse(localStorage.getItem('token'))
         let config = {
             headers: {
@@ -105,7 +107,10 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
         let result = await getData(`post/fetchAllPosts?limit=${limit}&skip=${skip}`, config)
 
         if (result?.status == true) {
+            setIsLoading(false)
             setPostDataList((data)=>[...data, ...result?.data])
+        } else {
+            setIsLoading(false)
         }
 
         let postedbyyou = result?.data?.filter((item) => {
@@ -114,6 +119,7 @@ export default function Home({refresh, setRefresh, isLoading, setIsLoading}) {
         // console.log("post which is post by you : ", postedbyyou)
         setPostByYou(postedbyyou)
         // console.log("end")
+        
     }
 
     const fetchAllPostsbyChanges = async () => {
