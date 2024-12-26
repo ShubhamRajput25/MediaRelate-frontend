@@ -110,7 +110,7 @@ export default function ProfilePostComponent({data,refresh,setRefresh}){
             }).then(async (result) => {
             if (result.isConfirmed) {
                 let result = await deleteData(`post/deletePost/${data?._id}`,config)
-                if (result.status == true) {
+                if (result?.status == true) {
                     notifyB(result?.message)
                 } else {
                     notifyA(result?.message)
